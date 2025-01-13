@@ -1,0 +1,118 @@
+<div class="card">
+        <h3 class="card-header">
+                <div class="row justify-items-between">
+                        <div class="col"><%= title %></div>
+                        <div class="col">
+                                <div class="input-group flex-nowrap">
+                                        <span class="input-group-text" id="addon-wrapping">
+                                                <i class="bi bi-search"></i>
+                                        </span>
+                                        <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="Search Event Name"
+                                                aria-label="Search"
+                                                aria-describedby="addon-wrapping"
+                                                id="search-bar"
+                                        />
+                                </div>
+                        </div>
+                        <div class="col offset">
+                                <% if (selected.explore) { %>
+                                <button id="createEvent" 
+                                        <% if (createMode) { %> 
+                                                class="btn disabled btn-primary" 
+                                        <%} else { %> 
+                                                class="btn btn-primary" 
+                                        <% } %>
+                                        >
+                                        <i class="bi bi-calendar2-plus"></i>
+                                </button>
+                                <% } %>
+                        </div>
+                </div>
+        </h3>
+        <div class="card-body">
+                <table class="table table-striped table-bordered">
+                        <thead>
+                                <tr>
+                                        <th>Title</th>
+                                        <th>Date</th>
+                                        <th>Location</th>
+                                        <th>Description</th>
+                                </tr>
+                        </thead>
+                        <tbody id="event-table-body"></tbody>
+                </table>
+        </div>
+</div>
+<script>
+        let testData = [
+                {
+                        title: "Event 1",
+                        date: "2021-09-01",
+                        location: "Location 1",
+                        description: "Description 1",
+                },
+                {
+                        title: "Event 2",
+                        date: "2021-09-02",
+                        location: "Location 2",
+                        description: "Description 2",
+                },
+                {
+                        title: "Event 3",
+                        date: "2021-09-03",
+                        location: "Location 3",
+                        description: "Description 3",
+                },
+        ];
+
+        document.getElementById("createEvent").addEventListener("click", () => {
+                window.location.href += "&create=true";
+        });
+
+        function renderTable(events, tableBodyId) {
+                const tableBody = document.getElementById(tableBodyId);
+                tableBody.innerHTML = ""; // Clear existing rows
+
+                events.forEach((event) => {
+                        const row = document.createElement("tr");
+
+                        const titleCell = document.createElement("td");
+                        titleCell.textContent = event.title;
+
+                        const dateCell = document.createElement("td");
+                        dateCell.textContent = event.date;
+
+                        const locationCell = document.createElement("td");
+                        locationCell.textContent = event.location;
+
+                        const descriptionCell = document.createElement("td");
+                        descriptionCell.textContent = event.description;
+
+                        row.appendChild(titleCell);
+                        row.appendChild(dateCell);
+                        row.appendChild(locationCell);
+                        row.appendChild(descriptionCell);
+
+                        tableBody.appendChild(row);
+                });
+        }
+
+        function filterEvents(searchTerm) {
+                const filtered = testData.filter((event) => {
+                        const searchTarget = Object.values(event).join(" ");
+                        console.log(searchTarget);
+                        return searchTarget.toLowerCase().includes(searchTerm.toLowerCase());
+                });
+                renderTable(filtered, "event-table-body");
+        }
+
+        document.getElementById("search-bar").addEventListener("input", (event) => {
+                const searchTerm = event.target.value;
+                filterEvents(searchTerm);
+        });
+
+        renderTable(testData, "event-table-body");
+</script>

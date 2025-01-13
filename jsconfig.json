@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "module": "nodenext"
+        "baseUrl": "./"
+        "path": {
+            "@/*": ["./*"],
+            "@core/*": ["./core/*"],
+            "@features/*": ["./features/*"]
+        }
+    }
+    // include: ["src/**/*", "./**/*"]
+}

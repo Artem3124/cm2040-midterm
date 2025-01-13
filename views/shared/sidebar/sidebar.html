@@ -1,0 +1,96 @@
+<div class="card h-100">
+<link rel="stylesheet"  type="text/css" href="/sidebar.css" />
+        <h3 class="card-header">Event Network</h3>
+        <div class="card-body">
+                <div class="container-fluid d-flex flex-column h-100">
+                        <div class="row">
+                                <ul class="list-group">
+                                        <li
+                                        <% if (selected.explore) { %>
+                                                class="list-group-item active" 
+                                        <% } else { %> 
+                                                class="list-group-item" 
+                                        <% } %> 
+                                                aria-disabled="true"
+                                                menu-category="explore"
+                                        >
+                                                <div class="row">
+                                                        <div class="col-md-3">
+                                                                <i class="bi bi-calendar2-plus"></i>
+                                                        </div>
+                                                        <div class="col">
+                                                                <strong>Explore events</strong>
+                                                        </div>
+                                                </div>
+                                        </li>
+                                        <li
+                                        <% if (selected.attended) { %> 
+                                                class="list-group-item active" 
+                                        <% } else { %> 
+                                                class="list-group-item" 
+                                        <% } %>
+                                                menu-category="attended"
+                                        >
+                                                <div class="row">
+                                                        <div class="col-md-3">
+                                                                <i class="bi bi-calendar-heart"></i>
+                                                        </div>
+                                                        <div class="col">
+                                                                <strong>Attended events</strong>
+                                                        </div>
+                                                </div>
+                                        </li>
+                                        <li
+                                        <% if (selected.requests) { %> 
+                                                class="list-group-item active" 
+                                        <% } else { %> 
+                                                class="list-group-item" 
+                                        <% } %>
+                                                menu-category="requests"
+                                        >
+                                                <div class="row">
+                                                        <div class="col-md-3">
+                                                                <i class="bi bi-stickies"></i>
+                                                        </div>
+                                                        <div class="col">
+                                                                <strong>Requests</strong>
+                                                        </div>
+                                                </div>
+                                        </li>
+                                </ul>
+                        </div>
+                        <div class="row mt-auto">
+                                <div class="card">
+                                        <div class="card-body">
+                                                <div class="row">
+                                                        <div class="col-2">
+                                                                <i class="bi bi-person-square"></i>
+                                                        </div>
+                                                        <div class="col-2">@<%= user.username %></div>
+                                                        <div class="col offset-4" >
+                                                                <button id="logout" class="btn btn-secondary">
+                                                                        <i class="bi bi-person-x-fill"></i>
+                                                                </button>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div>
+<script>
+        const buttons = document.querySelectorAll('.list-group-item');
+
+        buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                        const category = button.getAttribute('menu-category');
+                        window.location.href = `/events?category=${encodeURIComponent(category)}`;
+                });
+        });
+
+        const logoutButton = document.getElementById('logout');
+        logoutButton.addEventListener('click', () => {
+                window.location.href = '/logout';
+        });
+</script>

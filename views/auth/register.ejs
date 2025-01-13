@@ -1,0 +1,59 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+    <title>Register</title>
+  </head>
+  <body>
+      <div class="container md">
+    <h1>Register</h1>
+    <form action="register" method="post">
+    <label for="email" class="col-sm-2 col-form-label">Email</label>
+      <div class="row mb-3">
+        <div class="col-sm-10">
+          <input type="email" name="email" <% if (email) { %>  class="form-control is-invalid" <% } else {%> class="form-control" <%  }%> id="email" />
+          <div class="invalid-feedback">
+          Address already in use
+          </div>
+        </div>
+      </div>
+
+      <label for="registerUserName" class="col-sm-2 col-form-label">Username</label>
+      <div class="row mb-3">
+        <div class="col-sm-10">
+          <input type="text" <% if (username) { %> class="form-control is-invalid" <% } else { %> class="form-control" <% } %> name="username" id="registerUserName" />
+          <div class="invalid-feedback">
+          Username already in use
+          </div>
+        </div>
+      </div>
+
+      <label for="registerLogin" class="col-sm-2 col-form-label">Login</label>
+      <div class="row mb-3">
+        <div class="col-sm-10">
+          <input type="text" <% if (login) { %> class="form-control is-invalid" <% } else { %> class="form-control" <% } %> name="login" id="registerLogin" />
+          <div class="invalid-feedback">
+          Login already in use
+        </div>
+        </div>
+      </div>
+
+      <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+      <div class="row mb-3">
+        <div class="col-sm-10">
+          <input min type="password" name="password" class="form-control" id="inputPassword3" aria-describedby="passwordHelpBlock"/>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" aria-desrcibedby="buttonHelpBlock">Register</button>
+      <div id="formHelpBlock" class="form-text mb-4">
+      Already have an account? <a href="/login">Login</a>
+      </div>
+    </form>
+
+    </div>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

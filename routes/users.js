@@ -10,8 +10,10 @@
 
 const express = require("express");
 const router = express.Router();
+const db = require("../core/db")();
 
 /**
+ * @deprecated
  * @desc Display all the users
  */
 router.get("/list-users", (req, res, next) => {
@@ -19,7 +21,7 @@ router.get("/list-users", (req, res, next) => {
   query = "SELECT * FROM users";
 
   // Execute the query and render the page with the results
-  global.db.all(query, function (err, rows) {
+  db.all(query, function (err, rows) {
     if (err) {
       next(err); //send the error on to the error handler
     } else {
@@ -30,21 +32,23 @@ router.get("/list-users", (req, res, next) => {
 
 /**
  * @desc Displays a page with a form for creating a user record
+ * @deprecated
  */
-router.get("/add-user", (req, res) => {
+router.get("/add", (req, res) => {
   res.render("add-user.ejs");
 });
 
 /**
  * @desc Add a new user to the database based on data from the submitted form
+ * @deprecated
  */
-router.post("/add-user", (req, res, next) => {
+router.post("/add", (req, res, next) => {
   // Define the query
   query = "INSERT INTO users (user_name) VALUES( ? );";
   query_parameters = [req.body.user_name];
 
   // Execute the query and send a confirmation message
-  global.db.run(query, query_parameters, function (err) {
+  db.run(query, query_parameters, function (err) {
     if (err) {
       next(err); //send the error on to the error handler
     } else {
